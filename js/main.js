@@ -43,6 +43,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
       inputItem.id = 'done_check_box_item' + current_id
       inputItem.addEventListener('change', () => handleDoneItemClick(id))
 
+      let deleteIcon = document.createElement('i')
+      deleteIcon.className = '"bi bi-trash'
+
       let label = document.createElement('label')
       label.className = 'form-check-label'
       label.htmlFor = 'done_check_box_item' + current_id
@@ -52,6 +55,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
       add_task_field.appendChild(listItem)
       listItem.appendChild(label)
       listItem.appendChild(inputItem)
+      listItem.appendChild(deleteIcon)
       current_id++
     }
 

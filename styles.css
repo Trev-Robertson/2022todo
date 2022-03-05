@@ -1,3 +1,10 @@
 body {
     background-color: #eafae6;
   }
+
+.done-task{
+  text-decoration: line-through;
+  text-decoration-color: red;
+  font-style: italic;
+
+}

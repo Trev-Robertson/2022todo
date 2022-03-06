@@ -32,6 +32,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const render = () => {
       let array = listManagerStore.getState()
       let id = current_id
+      if(!array[id]){
+          return
+      }
       let listItem = document.createElement('div')
       listItem.className = 'form-check'
 
@@ -66,12 +69,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
       if(input){
         listManagerStore.dispatch({type: 'ADD', payload: {[current_id]: {id: current_id, value: input, status: 'pending'}}})
-        render()
+        // render()
       }
 
       form.reset()
     }
     form.addEventListener('submit', logSubmit)
 
+    listManagerStore.subscribe(render)
 })
 

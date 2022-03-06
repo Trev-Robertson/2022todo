@@ -29,6 +29,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     }
 
+    const deleteListItem = (listItem) => {
+      listItem.remove()
+    }
+
     const render = () => {
       let array = listManagerStore.getState()
       let id = current_id
@@ -45,13 +49,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
       let deleteIcon = document.createElement('i')
       deleteIcon.className = '"bi bi-trash'
+      deleteIcon.addEventListener('click', () => deleteListItem(listItem))
 
       let label = document.createElement('label')
       label.className = 'form-check-label'
       label.htmlFor = 'done_check_box_item' + current_id
       label.id = 'label_done_check_box_item' + current_id
-      label.innerText =  array[id]?.value
-      
+      label.innerText =  array[id].value
+
       add_task_field.appendChild(listItem)
       listItem.appendChild(label)
       listItem.appendChild(inputItem)
@@ -73,5 +78,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
     form.addEventListener('submit', logSubmit)
 
+    // listManagerStore.subscribe(render)
 })
 

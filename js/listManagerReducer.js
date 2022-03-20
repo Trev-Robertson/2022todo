@@ -1,20 +1,27 @@
-export const listManagerReducer = (state = {}, action) => {
+export const listManagerReducer = (state = [], action) => {
 
     if(!action.payload){
       return state
     }
         switch (action.type) {
-        case 'ADD':
-            const updatedState = {...state, ...action.payload}
-            return updatedState 
-
-        case 'REMOVE':
-          const {[action.payload.id]: removedProperty, ...updatedState1} = state
-          return updatedState1
+        case 'CREATE':
+            return [...state, action.payload] 
 
         case 'UPDATE':
-          const updatedState3 = {...state, [action.payload.id]: action.payload}
-          return updatedState3
+          const updatedState3 = [...state].map(item => {
+           
+           return item.id === action.payload.id ? {...item, ...action.payload} : item
+          })
+            console.log('UPDATED THING', updatedState3)
+        return updatedState3
+
+        case 'DELETE':
+          console.log('ACTIONS', action.payload, state)
+          const updatedStateDelete = [...state].filter(item => {
+            return item.id !== action.payload.id
+           })
+          return updatedStateDelete
+
         default:
             return state
         }

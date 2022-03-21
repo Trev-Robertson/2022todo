@@ -17,15 +17,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
       let listItemCopy = listManagerStore.getState().find(item => item.id === id)
 
       let elem = document.getElementById('label_done_check_box_item' + listItemCopy.id)
-      // debugger
+    
       if(listItemCopy.status === 'pending'){
         
         listManagerStore.dispatch({type: 'UPDATE', payload: {id, status: 'done'}})
-        // elem.classList.add('done-task')
+
       }
       else if(listItemCopy.status === 'done'){
         listManagerStore.dispatch({type: 'UPDATE', payload: {id, status: 'pending'}})
-        // elem.classList.remove('done-task')
+   
       }
 
     }
@@ -41,17 +41,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
         toDoContainer.removeChild(toDoContainer.firstChild);
       }
       let array = listManagerStore.getState()
-      // if(!array[id]){
-        //     return
-        // }
+
       array.map(item => {
-        // debugger
       let id = item.id
 
       let listItem = document.createElement('div')
       listItem.className = 'form-check "position-relative"'
-      
-
       
       let inputItem = document.createElement('input')
       inputItem.className = 'form-check-input'
@@ -85,23 +80,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
       listItem.appendChild(deleteIcon)
     })
 
+  }
+  
+  const logSubmit = (event) => {
+    
+    event.preventDefault();
+    let input = document.getElementById('to_do_input').value
+    
+    if(input){
+      listManagerStore.dispatch({type: 'CREATE', payload:  {id: current_id, value: input, status: 'pending'}})
       current_id++
     }
+    form.reset()
+  }
+  form.addEventListener('submit', logSubmit)
+  listManagerStore.subscribe(render)
 
-    const logSubmit = (event) => {
-
-      event.preventDefault();
-      let input = document.getElementById('to_do_input').value
-
-      if(input){
-        listManagerStore.dispatch({type: 'CREATE', payload:  {id: current_id, value: input, status: 'pending'}})
-        // render()
-      }
-
-      form.reset()
-    }
-    form.addEventListener('submit', logSubmit)
-
-    listManagerStore.subscribe(render)
 })
 

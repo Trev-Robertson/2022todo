@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 export const listManagerReducer = (state = [], action) => {
 
         switch (action.type) {
@@ -18,6 +26,9 @@ export const listManagerReducer = (state = [], action) => {
             return item.id !== action.payload.id
            })
           return updatedStateDelete
+        
+        case 'INITIAL_TODO':
+          return action.payload
 
         default:
             return state

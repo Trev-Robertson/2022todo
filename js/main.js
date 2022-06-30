@@ -6,8 +6,41 @@ import {store} from './store.js'
 window.addEventListener('DOMContentLoaded', (event) => {
 
 console.log('STORE', store.getState())
+const initial_state = [
+  {
+    id: 1,
+    value: 'Invade Ukraine',
+    status: 'done'
 
-    let current_id = 1
+  },
+  {
+    id: 2,
+    value: 'Win American Idol',
+    status: 'pending'
+  },
+  {
+    id: 3,
+    value: 'Shirtless Horseback Riding',
+    status: 'done'
+  },
+  {
+    id: 4,
+    value: 'Score 8 goals in a professional hockey game ',
+    status: 'done'
+  },
+  {
+    id: 5,
+    value: '👀 👀"Dont" Poison Political Oppponents 👀 👀',
+    status: 'pending'
+  },
+  {
+    id: 6,
+    value: 'Find True Love',
+    status: 'pending'
+  },
+
+]
+    let current_id = store.getState().idCounterReducer
     let add_task_field = document.getElementById('add_task_field')
     let form = document.getElementById('to_do_main_form')
     let toDoContainer = document.createElement('div')
@@ -17,7 +50,7 @@ console.log('STORE', store.getState())
       let listItemCopy = store.getState().listManagerReducer.find(item => item.id === id)
 
       let elem = document.getElementById('label_done_check_box_item' + listItemCopy.id)
-      // debugger
+      
       if(listItemCopy.status === 'pending'){
         
         store.dispatch({type: 'UPDATE', payload: {id, status: 'done'}})
@@ -37,6 +70,7 @@ console.log('STORE', store.getState())
     }
 
     const render = () => {
+      
       while (toDoContainer.firstChild) {
         toDoContainer.removeChild(toDoContainer.firstChild);
       }
@@ -45,13 +79,11 @@ console.log('STORE', store.getState())
         //     return
         // }
       array.map(item => {
-        // debugger
-      let id = item.id
+        
 
       let listItem = document.createElement('div')
       listItem.className = 'form-check "position-relative"'
       
-
       
       let inputItem = document.createElement('input')
       inputItem.className = 'form-check-input'
@@ -104,7 +136,8 @@ console.log('STORE', store.getState())
       form.reset()
     }
     form.addEventListener('submit', logSubmit)
-
     store.subscribe(render)
+    store.dispatch({type: 'INITIAL_TODO', payload: initial_state})
+    store.dispatch({type: 'INITIAL_ID_START', payload: initial_state.length})
 })
 

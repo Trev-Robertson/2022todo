@@ -15,17 +15,17 @@ const initial_state = [
   },
   {
     id: 2,
-    value: 'Win American Idol',
+    value: 'Win American Idol 🎤 🎶',
     status: 'pending'
   },
   {
     id: 3,
-    value: 'Shirtless Horseback Riding',
+    value: 'Shirtless Horseback Riding 🐴',
     status: 'done'
   },
   {
     id: 4,
-    value: 'Score 8 goals in a professional hockey game ',
+    value: 'Score 8 goals in a professional hockey game',
     status: 'done'
   },
   {
@@ -35,7 +35,7 @@ const initial_state = [
   },
   {
     id: 6,
-    value: 'Find True Love',
+    value: 'Find True Love ❤️',
     status: 'pending'
   },
 
@@ -93,11 +93,11 @@ const initial_state = [
       inputItem.addEventListener('change', () => handleDoneItemClick(item.id))
       
       let deleteIcon = document.createElement('i')
-      deleteIcon.className = '"bi bi-trash position-absolute end-50'
+      deleteIcon.className = '"bi bi-trash position-absolute'
       deleteIcon.addEventListener('click', () => deleteListItem(item.id))
       
       let label = document.createElement('label')
-      label.className = 'form-check-label'
+      label.className = 'form-check-label fs-2'
       label.htmlFor = 'done_check_box_item' + item.id
       label.id = 'label_done_check_box_item' + item.id
       label.innerText =  item.value

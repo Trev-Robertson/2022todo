@@ -6,5 +6,15 @@ body {
   text-decoration: line-through;
   text-decoration-color: red;
   font-style: italic;
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: 3px;
+}
+
+.form-check-input{
+  width: 30px;
+  height: 30px;
+  margin-right: 12px;
+}
+
+.bi-trash{
+  right: 10%;
 }

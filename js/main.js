@@ -1,11 +1,11 @@
 
 
-import {listManagerStore} from './listManagerStore.js'
+import {store} from './store.js'
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
 
-
+console.log('STORE', store.getState())
 
     let current_id = 1
     let add_task_field = document.getElementById('add_task_field')
@@ -14,17 +14,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
     add_task_field.appendChild(toDoContainer)
 
     const handleDoneItemClick = (id) => {
-      let listItemCopy = listManagerStore.getState().find(item => item.id === id)
+      let listItemCopy = store.getState().listManagerReducer.find(item => item.id === id)
 
       let elem = document.getElementById('label_done_check_box_item' + listItemCopy.id)
       // debugger
       if(listItemCopy.status === 'pending'){
         
-        listManagerStore.dispatch({type: 'UPDATE', payload: {id, status: 'done'}})
+        store.dispatch({type: 'UPDATE', payload: {id, status: 'done'}})
         // elem.classList.add('done-task')
       }
       else if(listItemCopy.status === 'done'){
-        listManagerStore.dispatch({type: 'UPDATE', payload: {id, status: 'pending'}})
+        store.dispatch({type: 'UPDATE', payload: {id, status: 'pending'}})
         // elem.classList.remove('done-task')
       }
 
@@ -33,14 +33,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const deleteListItem = (id) => {
       // listItem.remove()
       
-      listManagerStore.dispatch({type: 'DELETE', payload: {id}})
+      store.dispatch({type: 'DELETE', payload: {id}})
     }
 
     const render = () => {
       while (toDoContainer.firstChild) {
         toDoContainer.removeChild(toDoContainer.firstChild);
       }
-      let array = listManagerStore.getState()
+      let array = store.getState().listManagerReducer
       // if(!array[id]){
         //     return
         // }
@@ -85,16 +85,19 @@ window.addEventListener('DOMContentLoaded', (event) => {
       listItem.appendChild(deleteIcon)
     })
 
-      current_id++
+    
+      console.log('STORE', store.getState())
+
     }
 
     const logSubmit = (event) => {
 
       event.preventDefault();
       let input = document.getElementById('to_do_input').value
-
+      const current_id = store.getState().idCounterReducer
       if(input){
-        listManagerStore.dispatch({type: 'CREATE', payload:  {id: current_id, value: input, status: 'pending'}})
+        store.dispatch({type: 'CREATE', payload:  {id: current_id, value: input, status: 'pending'}})
+        store.dispatch({type: 'NEW_ID'})
         // render()
       }
 
@@ -102,6 +105,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
     form.addEventListener('submit', logSubmit)
 
-    listManagerStore.subscribe(render)
+    store.subscribe(render)
 })
 

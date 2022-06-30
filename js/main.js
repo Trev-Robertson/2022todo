@@ -5,7 +5,7 @@ import {store} from './store.js'
 
 window.addEventListener('DOMContentLoaded', (event) => {
 
-console.log('STORE', store.getState())
+// console.log('STORE', store.getState())
 
     let current_id = 1
     let add_task_field = document.getElementById('add_task_field')
